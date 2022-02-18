@@ -1,5 +1,19 @@
 import type {SanityClient} from '@sanity/client'
 
+export interface ChangeItem {
+  changeType: 'bugfix' | 'feature'
+  description: any
+  title?: string
+}
+
+export interface ChangelogVersion {
+  changeItems: ChangeItem[]
+  version: string
+  isLatest: boolean
+}
+
+export type Changelog = ChangelogVersion[]
+
 export interface CheckModuleVersionsOptions {
   /**
    * Sanity client to use for performing versions check
@@ -68,6 +82,21 @@ export interface VersionsResponse {
    * Optional help URL received from the backend
    */
   helpUrl?: string
+
+  /**
+   * Studio changelog
+   */
+  changelog: Changelog
+
+  /**
+   * The current version of the studio
+   */
+  currentVersion: string
+
+  /**
+   * The latest available version of the studio
+   */
+  latestVersion: string
 }
 
 export interface ModuleStatusResponse extends VersionsResponse {
