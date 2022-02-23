@@ -1,15 +1,20 @@
 import React, {useEffect, useState} from 'react'
 import {Container, Text, Flex, Spinner} from '@sanity/ui'
 import {fetchToken, saveToken} from '@sanity/base/_internal'
-import {versionedClient} from './versionedClient'
+import {getVersionedClient} from './versionedClient'
 import {LoginDialog, pluginConfig} from './legacyParts'
 
-const isProjectLogin = versionedClient.config().useProjectHostname
-const projectId: string | null =
-  (isProjectLogin && versionedClient.config && versionedClient.config().projectId) || null
+const getProjectId = () => {
+  const client = getVersionedClient()
+  const isProjectLogin = client.config().useProjectHostname
+  const projectId: string | null =
+    (isProjectLogin && client.config && client.config().projectId) || null
+  return projectId
+}
 
 const testCookieSupport = () => {
-  return versionedClient
+  const client = getVersionedClient()
+  return client
     .request({
       method: 'POST',
       uri: '/auth/testCookie',
@@ -17,7 +22,7 @@ const testCookieSupport = () => {
       tag: 'auth.cookie-test',
     })
     .then(() => {
-      return versionedClient
+      return client
         .request({
           method: 'GET',
           uri: '/auth/testCookie',
@@ -71,6 +76,7 @@ export default function CookieTest(props: Props) {
     // for which it's added to the url query params of the return url.
     const params = new URLSearchParams(window.location.search)
     const sid = params.get('sid')
+    const projectId = getProjectId()
     if (sid && projectId) {
       fetchToken(sid)
         .then((res) => {
@@ -110,7 +116,7 @@ export default function CookieTest(props: Props) {
         title={props.title}
         description={props.description}
         SanityLogo={props.SanityLogo}
-        projectId={projectId}
+        projectId={getProjectId()}
         type="token"
       />
     )

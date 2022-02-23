@@ -1,11 +1,12 @@
 import React, {useState, useEffect} from 'react'
 import {Text, Container, Flex, Spinner, Stack} from '@sanity/ui'
-import {versionedClient} from './versionedClient'
+import {getVersionedClient} from './versionedClient'
 
-const checkCors = () =>
-  Promise.all([
-    versionedClient.request({uri: '/ping', withCredentials: false}).then(() => true),
-    versionedClient
+const checkCors = () => {
+  const client = getVersionedClient()
+  return Promise.all([
+    client.request({uri: '/ping', withCredentials: false}).then(() => true),
+    client
       .request({uri: '/users/me', withCredentials: false})
       .then(() => true)
       .catch(() => false),
@@ -15,6 +16,7 @@ const checkCors = () =>
       pingResponded: res[0],
     }))
     .catch((error) => ({error}))
+}
 
 function CorsWrapper({result, children}) {
   const response = result && result.error && result.error.response
@@ -35,6 +37,7 @@ function CorsWrapper({result, children}) {
 }
 
 export default function CorsCheck() {
+  const client = getVersionedClient()
   const [state, setState] = useState({isLoading: true})
 
   useEffect(() => {
@@ -63,8 +66,8 @@ export default function CorsCheck() {
     )
   }
 
-  const tld = versionedClient.config().apiHost.replace(/.*?sanity\.([a-z]+).*/, '$1')
-  const projectId = versionedClient.config().projectId
+  const tld = client.config().apiHost.replace(/.*?sanity\.([a-z]+).*/, '$1')
+  const projectId = client.config().projectId
   const corsUrl = `https://manage.sanity.${tld}/projects/${projectId}/settings/api`
   const response = result.error && result.error.response
 

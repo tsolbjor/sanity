@@ -8,14 +8,16 @@ import {authToken$} from '@sanity/base/_internal'
 import CookieTest from './CookieTest'
 import ErrorDialog from './ErrorDialog'
 import UnauthorizedUser from './UnauthorizedUser'
-import {versionedClient} from './versionedClient'
+import {getVersionedClient} from './versionedClient'
 import {userStore, LoginDialog} from './legacyParts'
 
 const ENABLE_CROSS_WINDOW_TOKEN_LOGIN_SYNC = false
 
-const isProjectLogin = versionedClient.config().useProjectHostname
-const projectId =
-  isProjectLogin && versionedClient.config().projectId ? versionedClient.config().projectId : null
+const getProjectId = () => {
+  const client = getVersionedClient()
+  const isProjectLogin = client.config().useProjectHostname
+  return isProjectLogin && client.config().projectId ? client.config().projectId : null
+}
 
 export default class LoginWrapper extends React.PureComponent {
   static propTypes = {
@@ -108,6 +110,7 @@ export default class LoginWrapper extends React.PureComponent {
   render() {
     const {error, user, isLoading} = this.state
     const {children, LoadingScreen, sanityLogo, SanityLogo} = this.props
+    const projectId = getProjectId()
     if (sanityLogo) {
       const warning =
         'sanityLogo is a deprecated property on LoginWrapper. Pass a React component to the SanityLogo property instead.'
