@@ -80,13 +80,7 @@ function fetchCrossDatasetReferences(
       return versionedClient.observable
         .request({
           url: `/data/references/${currentDataset}/documents/${documentId}/to?excludeInternalReferences=true&excludePaths=true`,
-          ...(crossDatasetTokens.length > 0
-            ? {
-                'sanity-project-tokens': crossDatasetTokens
-                  .map((t) => `${t.projectId}=${t.token}`)
-                  .join(','),
-              }
-            : null),
+          headers,
         })
         .pipe(
           catchError((e) => {
