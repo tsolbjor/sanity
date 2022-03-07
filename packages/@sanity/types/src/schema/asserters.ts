@@ -1,4 +1,4 @@
-import {CrossDatasetReferenceSchemaType, isCrossDatasetReference} from '../crossDatasetReference'
+import {CrossDatasetReferenceSchemaType} from '../crossDatasetReference'
 import {
   BlockSchemaType,
   ArraySchemaType,
