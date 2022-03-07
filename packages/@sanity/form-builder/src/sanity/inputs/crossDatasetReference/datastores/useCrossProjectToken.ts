@@ -11,7 +11,7 @@ type LoadState<T> =
     }
   | {status: 'error'; error: Error}
 
-export function useCrossDatasetToken(
+export function useCrossProjectToken(
   client: SanityClient,
   {projectId, tokenId}: {tokenId?: string; projectId: string}
 ): LoadState<string> {
