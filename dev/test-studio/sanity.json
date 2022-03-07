@@ -38,7 +38,7 @@
     "@sanity/studio-hints",
     "dashboard-widget-cats",
     "dashboard-widget-document-list",
-    "cross-dataset-tokens",
+    "cross-project-tokens",
     "markdown",
     "mux-input"
   ],
