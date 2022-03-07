@@ -68,6 +68,14 @@ function fetchCrossDatasetReferences(
     switchMap(() => fetchAllCrossProjectTokens()),
     switchMap((crossDatasetTokens) => {
       const currentDataset = client.config().dataset
+      const headers: Record<string, string> =
+        crossDatasetTokens.length > 0
+          ? {
+              'sanity-project-tokens': crossDatasetTokens
+                .map((t) => `${t.projectId}=${t.token}`)
+                .join(','),
+            }
+          : {}
 
       return versionedClient.observable
         .request({
