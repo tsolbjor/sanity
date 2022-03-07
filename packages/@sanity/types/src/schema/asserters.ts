@@ -33,7 +33,8 @@ export function isCrossDatasetReferenceSchemaType(
   type: unknown
 ): type is CrossDatasetReferenceSchemaType {
   return (
-    isRecord(type) && (type.name === 'crossDatasetReference' || isCrossDatasetReference(type.type))
+    isRecord(type) &&
+    (type.name === 'crossDatasetReference' || isCrossDatasetReferenceSchemaType(type.type))
   )
 }
 
