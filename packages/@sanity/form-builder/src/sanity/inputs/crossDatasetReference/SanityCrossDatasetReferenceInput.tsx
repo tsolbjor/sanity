@@ -89,7 +89,7 @@ const SanityCrossDatasetReferenceInput = forwardRef(function SanityCrossDatasetR
   const currentProject = versionedClient.config().projectId
 
   const isCurrentProject = currentProject === type.projectId
-  const loadableToken = useCrossDatasetToken(versionedClient, {
+  const loadableToken = useCrossProjectToken(versionedClient, {
     projectId: type.projectId,
     tokenId: type.tokenId,
   })
