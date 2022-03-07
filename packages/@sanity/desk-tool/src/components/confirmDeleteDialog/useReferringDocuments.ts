@@ -90,7 +90,7 @@ function fetchCrossDatasetReferences(
 ): Observable<ReferringDocuments['crossDatasetReferences']> {
   return visiblePoll$.pipe(
     switchMap(() => fetchAllCrossProjectTokens()),
-    switchMap((crossDatasetTokens) => {
+    switchMap((crossProjectTokens) => {
       const currentDataset = client.config().dataset
       const headers: Record<string, string> =
         crossDatasetTokens.length > 0
