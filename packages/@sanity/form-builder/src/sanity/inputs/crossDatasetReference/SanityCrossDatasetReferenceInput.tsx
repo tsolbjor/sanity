@@ -23,7 +23,7 @@ import {versionedClient} from '../../versionedClient'
 import {Alert} from '../../../components/Alert'
 import {search} from './datastores/search'
 import {createGetReferenceInfo} from './datastores/getReferenceInfo'
-import {useCrossDatasetToken} from './datastores/useCrossDatasetToken'
+import {useCrossProjectToken} from './datastores/useCrossProjectToken'
 
 // eslint-disable-next-line require-await
 async function resolveUserDefinedFilter(
