@@ -180,6 +180,11 @@ export default {
       type: 'array',
       of: [
         {
+          title: 'Cross Dataset reference subtype test',
+          name: 'crossDatasetSubtype',
+          type: 'crossDatasetSubtype',
+        },
+        {
           type: 'crossDatasetReference',
           dataset: 'next',
           projectId: '3do82whm',
