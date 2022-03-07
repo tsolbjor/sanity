@@ -95,7 +95,7 @@ function fetchCrossDatasetReferences(
       const headers: Record<string, string> =
         crossProjectTokens.length > 0
           ? {
-              'sanity-project-tokens': crossDatasetTokens
+              'sanity-project-tokens': crossProjectTokens
                 .map((t) => `${t.projectId}=${t.token}`)
                 .join(','),
             }
